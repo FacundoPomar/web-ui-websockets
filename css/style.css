@@ -1,10 +1,14 @@
 .postal {
   background-color: #edf047;
   margin-bottom: 20px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 
 .header {
-  margin-top: 10px;
+  margin-top: 27px;
 }
 .header .headerBox_title {
   font-size: 4em;
@@ -19,7 +23,6 @@
 }
 
 .comicsBox {
-  margin-top: 20px;
   background-color: #edf047;
   font-family: fantasy;
 }
@@ -44,6 +47,8 @@
 
 .footer {
   margin-bottom: 0;
+  text-align: center;
+  min-height: 30px;
 }
 
 /* Mobiles and stuff like that */

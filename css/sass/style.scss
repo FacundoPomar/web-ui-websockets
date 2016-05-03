@@ -4,10 +4,14 @@ $primaryBgColor: #EDF047;
 .postal {
     background-color: $primaryBgColor;
     margin-bottom: 20px;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
 }
 
 .header {
-    margin-top: 10px;
+    margin-top: 27px;
 
     .headerBox_title {
         font-size: 4em;
@@ -24,7 +28,6 @@ $primaryBgColor: #EDF047;
 }
 
 .comicsBox {
-    margin-top: 20px;
     background-color: $primaryBgColor;
     font-family: fantasy;
 
@@ -57,6 +60,8 @@ $primaryBgColor: #EDF047;
 
 .footer {
     margin-bottom: 0;
+    text-align: center;
+    min-height: 30px;
 }
 
 /* Mobiles and stuff like that */
