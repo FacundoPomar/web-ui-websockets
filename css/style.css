@@ -1,0 +1,22 @@
+.header {
+  margin-top: 10px;
+  background-color: #EDF047;
+}
+.header .headerBox_title {
+  font-size: 4em;
+  font-family: fantasy;
+  color: #0a7b0e;
+  padding-top: 20px;
+  margin-bottom: 0;
+}
+.header .headerBox_subTitle {
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+/* Mobiles and stuff like that */
+@media only screen and (max-width: 768px) {
+  .header {
+    background-color: green;
+  }
+}

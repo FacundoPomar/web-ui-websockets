@@ -1,0 +1,26 @@
+$primaryColor: #0A7B0E;
+
+.header {
+    margin-top: 10px;
+    background-color: #EDF047;
+
+    .headerBox_title {
+        font-size: 4em;
+        font-family: fantasy;
+        color: $primaryColor;
+        padding-top: 20px;
+        margin-bottom: 0;
+    }
+
+    .headerBox_subTitle {
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+}
+
+/* Mobiles and stuff like that */
+@media only screen and (max-width : 768px) {
+    .header {
+        background-color: green;
+    }
+}
