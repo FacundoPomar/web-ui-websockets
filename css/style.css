@@ -1,6 +1,10 @@
+.postal {
+  background-color: #edf047;
+  margin-bottom: 20px;
+}
+
 .header {
   margin-top: 10px;
-  background-color: #EDF047;
 }
 .header .headerBox_title {
   font-size: 4em;
@@ -12,6 +16,34 @@
 .header .headerBox_subTitle {
   margin-bottom: 20px;
   font-style: italic;
+}
+
+.comicsBox {
+  margin-top: 20px;
+  background-color: #edf047;
+  font-family: fantasy;
+}
+.comicsBox .comicBox_container .comicPostal {
+  margin-bottom: 25px;
+}
+.comicsBox .comicBox_container .comicPostal:hover {
+  cursor: pointer;
+}
+.comicsBox .comicBox_container .comicPostal_img {
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+.comicsBox .comicBox_container .comicPostal_img:hover {
+  opacity: 0.5;
+}
+.comicsBox .comicBox_container .comicPostal_title {
+  font-size: 1.5em;
+}
+
+.footer {
+  margin-bottom: 0;
 }
 
 /* Mobiles and stuff like that */

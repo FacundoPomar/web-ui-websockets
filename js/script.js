@@ -1,4 +1,4 @@
-var conn = new WebSocket('ws://localhost:9090');
+var conn = new WebSocket('ws://localhost:9090/chat');
 conn.onopen = function(e) {
     console.log("Connection established!");
 };
@@ -18,10 +18,10 @@ $("#send").on("click", function () {
 	conn.send($('#mensajero').val());
 });
 
-$(document).ready(function() {
+// $(document).ready(function() {
 	// var source   = $("#entry-template").html();
 	// var template = Handlebars.compile(source);
 	// var context = {title: "My New Post", body: "This is my first post!"};
 	// var html    = template(context);
 	// $(".lala").html(html);
-});;
+// });;
