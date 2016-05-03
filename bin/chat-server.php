@@ -6,13 +6,6 @@ use MyApp\Chat;
 
     require dirname(__DIR__) . '/vendor/autoload.php';
 
-    $server = IoServer::factory(
-        new HttpServer(
-            new WsServer(
-                new Chat()
-            )
-        ),
-        9090
-    );
-
-    $server->run();
+    $app = new Ratchet\App('localhost', 9090);
+    $app->route('/chat', new Chat, array('*'));
+    $app->run();
