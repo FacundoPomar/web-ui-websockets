@@ -49,6 +49,16 @@
   margin-bottom: 0;
   text-align: center;
   min-height: 30px;
+  padding: 10px;
+}
+
+.fullComicView .fullComicView_title {
+  text-align: center;
+  color: red;
+  font-weight: bolder;
+  font-family: fantasy;
+  font-size: 5em;
+  font-style: italic;
 }
 
 /* Mobiles and stuff like that */

@@ -1,5 +1,6 @@
 $primaryColor: #0A7B0E;
 $primaryBgColor: #EDF047;
+$comicTitle: red;
 
 .postal {
     background-color: $primaryBgColor;
@@ -63,6 +64,17 @@ $primaryBgColor: #EDF047;
     text-align: center;
     min-height: 30px;
     padding: 10px;
+}
+
+.fullComicView {
+    .fullComicView_title {
+        text-align: center;
+        color: $comicTitle;
+        font-weight: bolder;
+        font-family: fantasy;
+        font-size: 5em;
+        font-style: italic;
+    }
 }
 
 /* Mobiles and stuff like that */

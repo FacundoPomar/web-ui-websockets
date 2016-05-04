@@ -2,6 +2,7 @@ var config = {};
 var templates = {};
 var latestComics = [];
 var popularComics = [];
+var mainSection = '.main-section';
 
 $(document).ready(function() {
 	compileTemplates(templates);
@@ -13,10 +14,10 @@ $(document).ready(function() {
 function compileTemplates(templates) {
 	templates = templates || {};
 
-	//Header
 	templates.header = Handlebars.compile($('#header-template').html());
 	templates.comicsBlock = Handlebars.compile($('#comic-postal-template').html());
 	templates.footer = Handlebars.compile($('#footer-template').html());
+	templates.viewComic = Handlebars.compile($('#view-comic-template').html());
 }
 
 
@@ -77,11 +78,11 @@ function getComics(comics, type, observers) {
 }
 
 function showPopularComicsBlock() {
-	showComicBlock('Popular Comics', '.main-section', popularComics);
+	showComicBlock('Popular Comics', mainSection, popularComics);
 }
 
 function showLatestComicsBlock() {
-	showComicBlock('Latest Comics', '.main-section', latestComics);
+	showComicBlock('Latest Comics', mainSection, latestComics);
 }
 
 function showComicBlock(blockTitle, selector, comics) {
@@ -104,5 +105,34 @@ function showComicBlock(blockTitle, selector, comics) {
 }
 
 function openComic() {
-	console.log($(this).data('id'));
+	console.log('openComic');
+	var id = $(this).data('id'),
+		conn = new WebSocket('ws://localhost:9090/comic/' + id);
+
+	conn.onmessage = function (e) {
+		try {
+			var data = JSON.parse(e.data);
+			if (data.response === 'ok') {
+				var comic = new Comic(data.comic);
+				viewComic(comic);
+			} else {
+				//Show comic not found page
+			}
+		} catch (err) {
+
+		}
+	}
+}
+
+function viewComic(comic) {
+
+	if (templates && templates.viewComic) {
+		$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewComic(comic))
+				.slideDown();
+		});
+
+	}
+
 }

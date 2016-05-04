@@ -106,3 +106,14 @@
         {{/links}}
     </div>
 </script>
+
+<script id="view-comic-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 fullComicView postal">
+            <h1 class="fullComicView_title">{{ title }}</h1>
+            <h2>{{ id }}</h2>
+            <img src="{{ img }}" alt="{{ title }}">
+            <div>{{ description }}</div>
+        </div>
+    </div>
+</script>
