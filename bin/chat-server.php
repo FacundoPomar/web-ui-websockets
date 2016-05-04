@@ -11,5 +11,5 @@ use MyApp\Comics;
     $app = new Ratchet\App('localhost', 9090);
     $app->route('/chat', new Chat, array('*'));
     $app->route('/siteconfig', new SiteConfig, array('*'));
-    $app->route('/comics', new Comics, array('*'));
+    $app->route('/comics/{type}', new Comics, array('*'));
     $app->run();

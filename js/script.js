@@ -1,11 +1,13 @@
 var config = {};
 var templates = {};
-var comics = [];
+var latestComics = [];
+var popularComics = [];
 
 $(document).ready(function() {
 	compileTemplates(templates);
 	loadSiteConfig(config, [showHeader]);
-	getComics(comics, [showComicsBlock]);
+	getComics(popularComics, 'popular', [showPopularComicsBlock]);
+	getComics(latestComics, 'latest', [showLatestComicsBlock]);
 });;
 
 function compileTemplates(templates) {
@@ -19,10 +21,6 @@ function compileTemplates(templates) {
 
 function loadSiteConfig(config, observers) {
 	var conn = new WebSocket('ws://localhost:9090/siteconfig');
-
-	conn.onopen = function(e) {
-    	conn.send('');
-	};
 
 	conn.onmessage = function(e) {
 		try {
@@ -46,12 +44,8 @@ function showHeader() {
 	}
 }
 
-function getComics(comics, observers) {
-	var conn = new WebSocket('ws://localhost:9090/comics');
-
-	conn.onopen = function(e) {
-    	conn.send(JSON.stringify({type: 'get'}));
-	};
+function getComics(comics, type, observers) {
+	var conn = new WebSocket('ws://localhost:9090/comics/' + type);
 
 	conn.onmessage = function(e) {
 		try {
@@ -72,13 +66,21 @@ function getComics(comics, observers) {
 	};
 }
 
-function showComicsBlock() {
+function showPopularComicsBlock() {
+	showComicBlock('Popular Comics', '.main-section', popularComics);
+}
+
+function showLatestComicsBlock() {
+	showComicBlock('Latest Comics', '.main-section', latestComics);
+}
+
+function showComicBlock(blockTitle, selector, comics) {
 	comics = comics || [];
 	if (comics.length) {
 		var html = templates.comicsBlock({
-			title: 'Popular Comics',
+			blockTitle: blockTitle,
 			comics: comics
 		});
-		$('.main-section').append(html);
+		$(selector).append(html);
 	}
 }

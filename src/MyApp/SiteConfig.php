@@ -14,16 +14,15 @@ class SiteConfig implements MessageComponentInterface {
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
 
-        echo "New connection! ({$conn->resourceId})\n";
-    }
-
-    public function onMessage(ConnectionInterface $from, $msg) {
-
         $response = array(
             'title' => 'An Amaysing Comic Store',
             'subTitle' => 'We sell only the best commics in the world, if that is possible'
             );
-        $from->send(json_encode($response));
+        $conn->send(json_encode($response));
+    }
+
+    public function onMessage(ConnectionInterface $from, $msg) {
+
     }
 
     public function onClose(ConnectionInterface $conn) {

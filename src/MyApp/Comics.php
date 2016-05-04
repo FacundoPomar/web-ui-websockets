@@ -14,80 +14,28 @@ class Comics implements MessageComponentInterface {
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
 
-        echo "New connection! ({$conn->resourceId})\n";
-    }
+        $type = 'latest';
+        $parameters = $conn->WebSocket->request->getQuery()->toArray();
 
-    public function onMessage(ConnectionInterface $from, $msg) {
-
+        if (count($parameters) and isset($parameters['type'])) {
+            $type = $parameters['type'];
+        }
         $response = array();
 
         try {
-            $data = json_decode($msg);
-            if ($data->type == 'get') {
-                $response['response'] = 'ok';
-                $response['comics'] = array(
-                    array(
-                        'title' => 'Spiderman 1',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description',
-                        'price' => '35.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 2',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description dsad',
-                        'price' => '35.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 3',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description wqdw qdwq ',
-                        'price' => '35.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 4',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description dqw dqw dqw',
-                        'price' => '135.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 5',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description qwddqw dqw ',
-                        'price' => '35.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 6',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description wwwwwwwqq qwd qwd qw dqwd qwd qwd ',
-                        'price' => '5.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 7',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description wqdqw dqwd qwd qwd qwd qwd qwd ',
-                        'price' => '31.46'
-                    ),
-                    array(
-                        'title' => 'Spiderman 8',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description qwdwqd qwd qwd qwd qwd qwd ',
-                        'price' => '35.00'
-                    ),
-                    array(
-                        'title' => 'Spiderman 9',
-                        'img' => './img/comics/comic-sample.jpg',
-                        'description' => 'I\'m a description  wdqwdqwdq dsad asd 32 d2d 32d 32 23',
-                        'price' => '235.46'
-                    )
-                    );
-            }
+            $comics = ($type == 'latest') ? $this->getLatestComics() : $this->getPopularComics();
+            $response['response'] = 'ok';
+            $response['comics'] = $comics;
         } catch (Exception $e) {
             $response['response'] = 'error';
             $response['error'] = 'An error just happend';
         }
 
-        $from->send(json_encode($response));
+        $conn->send(json_encode($response));
+    }
+
+    public function onMessage(ConnectionInterface $from, $msg) {
+
     }
 
     public function onClose(ConnectionInterface $conn) {
@@ -102,4 +50,89 @@ class Comics implements MessageComponentInterface {
 
         $conn->close();
     }
+
+    private function getLatestComics() {
+        return array(
+            array(
+                'title' => 'Spiderman 1',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description',
+                'price' => '35.46'
+            ),
+            array(
+                'title' => 'Spiderman 2',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description dsad',
+                'price' => '35.46'
+            ),
+            array(
+                'title' => 'Spiderman 3',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description wqdw qdwq ',
+                'price' => '35.46'
+            ),
+            array(
+                'title' => 'Spiderman 4',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description dqw dqw dqw',
+                'price' => '135.46'
+            ),
+            array(
+                'title' => 'Spiderman 5',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description qwddqw dqw ',
+                'price' => '35.46'
+            ),
+            array(
+                'title' => 'Spiderman 6',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description wwwwwwwqq qwd qwd qw dqwd qwd qwd ',
+                'price' => '5.46'
+            ),
+            array(
+                'title' => 'Spiderman 7',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description wqdqw dqwd qwd qwd qwd qwd qwd ',
+                'price' => '31.46'
+            ),
+            array(
+                'title' => 'Spiderman 8',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description qwdwqd qwd qwd qwd qwd qwd ',
+                'price' => '35.00'
+            ),
+            array(
+                'title' => 'Spiderman 9',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description  wdqwdqwdq dsad asd 32 d2d 32d 32 23',
+                'price' => '235.46'
+            )
+        );
+    }
+
+    private function getPopularComics() {
+        return array(
+            array(
+                'title' => 'Wonderwoman 1',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description',
+                'price' => '35.46'
+            ),
+            array(
+                'title' => 'Superman 2',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description dsad',
+                'price' => '35.46'
+            ),
+            array(
+                'title' => 'Somthing 3',
+                'img' => './img/comics/comic-sample.jpg',
+                'description' => 'I\'m a description wqdw qdwq ',
+                'price' => '35.46'
+            )
+        );
+    }
 }
+
+
+
