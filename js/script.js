@@ -5,7 +5,7 @@ var popularComics = [];
 
 $(document).ready(function() {
 	compileTemplates(templates);
-	loadSiteConfig(config, [showHeader]);
+	loadSiteConfig(config, [showHeader, showFooter]);
 	getComics(popularComics, 'popular', [showPopularComicsBlock]);
 	getComics(latestComics, 'latest', [showLatestComicsBlock]);
 });;
@@ -16,6 +16,7 @@ function compileTemplates(templates) {
 	//Header
 	templates.header = Handlebars.compile($('#header-template').html());
 	templates.comicsBlock = Handlebars.compile($('#comic-postal-template').html());
+	templates.footer = Handlebars.compile($('#footer-template').html());
 }
 
 
@@ -41,6 +42,15 @@ function showHeader() {
 	if (templates && templates.header) {
 		var html = templates.header(config);
 		$('.header-container').html(html);
+	}
+}
+
+function showFooter() {
+	config = config || {};
+	if (templates && templates.footer) {
+		var html = templates.footer(config.footer);
+		$('.footer-section').html(html);
+		// HERE call to bind click event on some links. Due the lack of frontend routing framework
 	}
 }
 
@@ -76,7 +86,7 @@ function showLatestComicsBlock() {
 
 function showComicBlock(blockTitle, selector, comics) {
 	comics = comics || [];
-	if (comics.length) {
+	if (comics.length && templates && templates.comicsBlock) {
 		var html = templates.comicsBlock({
 			blockTitle: blockTitle,
 			comics: comics

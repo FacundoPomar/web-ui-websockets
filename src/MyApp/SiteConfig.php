@@ -16,7 +16,24 @@ class SiteConfig implements MessageComponentInterface {
 
         $response = array(
             'title' => 'An Amaysing Comic Store',
-            'subTitle' => 'We sell only the best commics in the world, if that is possible'
+            'subTitle' => 'We sell only the best commics in the world, if that is possible',
+            'footer' => array(
+                    'caption' => 'Copyright something',
+                    'links' => array(
+                            array(
+                                'title' => 'sitemap',
+                                'url' => '#sitemap',
+                                'class' => 'sitemap',
+                                'text' => 'SITEMAP'
+                            ),
+                            array(
+                                'title' => 'another link',
+                                'url' => '#alink',
+                                'class' => '',
+                                'text' => 'Another Important Link'
+                            ),
+                        )
+                )
             );
         $conn->send(json_encode($response));
     }

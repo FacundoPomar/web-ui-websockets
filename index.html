@@ -97,3 +97,12 @@
         </div>
     </section>
 </script>
+
+<script id="footer-template" type="text/x-handlebars-template">
+    <div class="row footer postal">
+        {{ caption }}
+        {{#links}}
+            <a href="{{ url }}" title="{{ title }}" class="footer_link {{ class }}">{{ text }}</a>
+        {{/links}}
+    </div>
+</script>
