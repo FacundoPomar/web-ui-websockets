@@ -76,14 +76,14 @@
 
 <script id="comic-postal-template" type="text/x-handlebars-template">
     <section>
-        <div class="row comicsBox postal">
+        <div class="row comicsBox postal comicsBox_{{ blockClass }}">
             <div class="col col-md-12">
                 <h1 class="comicBox_title">
                     {{ blockTitle }}
                 </h1>
                 <div class="row comicBox_container">
                     {{#comics}}
-                    <div class="col col-md-2 col-xs-6 comicPostal">
+                    <div class="col col-md-2 col-xs-6 comicPostal" data-id={{ id }}>
                         <div class="comicPostal_title">
                             {{ title }}
                         </div>

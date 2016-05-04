@@ -85,12 +85,24 @@ function showLatestComicsBlock() {
 }
 
 function showComicBlock(blockTitle, selector, comics) {
+
+	function bindClickEvent(blockTitle) {
+		$(".comicsBox_" + blockTitle + " .comicPostal").on("click", openComic);
+	}
+
 	comics = comics || [];
 	if (comics.length && templates && templates.comicsBlock) {
-		var html = templates.comicsBlock({
-			blockTitle: blockTitle,
-			comics: comics
-		});
+		var blockClass = blockTitle.split(' ').join('').toLowerCase(),
+			html = templates.comicsBlock({
+				blockTitle: blockTitle,
+				blockClass: blockClass,
+				comics: comics
+			});
 		$(selector).append(html);
+		bindClickEvent(blockClass);
 	}
+}
+
+function openComic() {
+	console.log($(this).data('id'));
 }
