@@ -5,6 +5,7 @@ Path.map("#/comic/:id").to(function(){
 Path.map("#/").to(openHome);
 
 Path.map("#/login").to(openLogin);
+Path.map("#/logout").to(logOut);
 
 Path.map("#/sitemap").to(openSitemap);
 

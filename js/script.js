@@ -303,3 +303,8 @@ function openLogin() {
 				bindLoginEvent();
 	});
 }
+
+function logOut() {
+	clearLoginInfo([updateDinamicNavbar]);
+	window.location.href = '#/';
+}
