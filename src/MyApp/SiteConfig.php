@@ -22,13 +22,13 @@ class SiteConfig implements MessageComponentInterface {
                     'links' => array(
                             array(
                                 'title' => 'sitemap',
-                                'url' => '#sitemap',
+                                'url' => '#/sitemap',
                                 'class' => 'sitemap',
                                 'text' => 'SITEMAP'
                             ),
                             array(
                                 'title' => 'another link',
-                                'url' => '#alink',
+                                'url' => '#/alink',
                                 'class' => '',
                                 'text' => 'Another Important Link'
                             ),
