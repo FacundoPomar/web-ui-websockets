@@ -7,8 +7,6 @@ var mainSection = '.main-section';
 $(document).ready(function() {
 	compileTemplates(templates);
 	loadSiteConfig(config, [showHeader, showFooter]);
-	getComics(popularComics, 'popular', [showPopularComicsBlock]);
-	getComics(latestComics, 'latest', [showLatestComicsBlock]);
 });;
 
 function compileTemplates(templates) {
@@ -88,11 +86,8 @@ function showLatestComicsBlock() {
 
 function showComicBlock(blockTitle, selector, comics) {
 
-	function bindClickEvent(blockTitle) {
-		$(".comicsBox_" + blockTitle + " .comicPostal").on("click", openComic);
-	}
-
 	comics = comics || [];
+
 	if (comics.length && templates && templates.comicsBlock) {
 		var blockClass = blockTitle.split(' ').join('').toLowerCase(),
 			html = templates.comicsBlock({
@@ -101,14 +96,11 @@ function showComicBlock(blockTitle, selector, comics) {
 				comics: comics
 			});
 		$(selector).append(html);
-		bindClickEvent(blockClass);
 	}
 }
 
-function openComic() {
-	console.log('openComic');
-	var id = $(this).data('id'),
-		conn = new WebSocket('ws://localhost:9090/comic/' + id);
+function openComic(id) {
+	var conn = new WebSocket('ws://localhost:9090/comic/' + id);
 
 	conn.onmessage = function (e) {
 		try {
@@ -146,4 +138,15 @@ function viewComicNotFound(id) {
 				.slideDown();
 		});
 	}
+}
+
+function openHome() {
+	$(mainSection).slideUp(function () {
+			$(this).html('');
+			popularComics = [];
+			latestComics = [];
+			getComics(popularComics, 'popular', [showPopularComicsBlock]);
+    		getComics(latestComics, 'latest', [showLatestComicsBlock]);
+			$(this).slideDown('slow');
+	});
 }
