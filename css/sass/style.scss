@@ -75,6 +75,27 @@ $comicTitle: red;
         font-size: 5em;
         font-style: italic;
     }
+
+    .fullComicView_img {
+        float: left;
+        margin: 10px;
+        border: solid 20px $primaryColor;
+    }
+
+    .fullComicView_description {
+        text-align: justify;
+    }
+
+    .fullComicView_price {
+        text-align: center;
+        margin: 20px 0 20px 0;
+        color: blue;
+        font-size: 3em;
+    }
+
+    .fullComicView_info {
+        margin-bottom: 20px;
+    }
 }
 
 /* Mobiles and stuff like that */

@@ -57,6 +57,7 @@
 </body>
 <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 <script   src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"   ossorigin="anonymous"></script>
+<script src="./js/handlebars/helpers.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="./js/oo/Comic.js"></script>
@@ -67,7 +68,7 @@
 
 <script id="header-template" type="text/x-handlebars-template">
     <div class="col col-md-12 header postal">
-        <div class="col col-md-8 col-offset-2 headerBox">
+        <div class="col col-md-8 headerBox">
             <h1 class="headerBox_title">{{ title }}</h1>
             <div class="headerBox_subTitle">{{ subTitle }}</div>
         </div>
@@ -111,9 +112,23 @@
     <div class="row">
         <div class="col col-md-12 fullComicView postal">
             <h1 class="fullComicView_title">{{ title }}</h1>
-            <h2>{{ id }}</h2>
-            <img src="{{ img }}" alt="{{ title }}">
-            <div>{{ description }}</div>
+            <div class="row">
+                <div class="col col-md-6 col-md-offset-3 fullComicView_info">
+                    <div class="fullComicView_price">
+                    {{ price_helper price }}
+                    </div>
+                    <img src="{{ img }}" alt="{{ title }}" class="fullComicView_img">
+                    <div class="fullComicView_description">{{ description }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="view-comic-not-found-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 fullComicView postal">
+            <h1 class="fullComicView_title">Comic ID: {{ id }} Not Found !</h1>
         </div>
     </div>
 </script>

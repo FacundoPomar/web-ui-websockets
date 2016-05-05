@@ -60,6 +60,23 @@
   font-size: 5em;
   font-style: italic;
 }
+.fullComicView .fullComicView_img {
+  float: left;
+  margin: 10px;
+  border: solid 20px #0a7b0e;
+}
+.fullComicView .fullComicView_description {
+  text-align: justify;
+}
+.fullComicView .fullComicView_price {
+  text-align: center;
+  margin: 20px 0 20px 0;
+  color: blue;
+  font-size: 3em;
+}
+.fullComicView .fullComicView_info {
+  margin-bottom: 20px;
+}
 
 /* Mobiles and stuff like that */
 @media only screen and (max-width: 768px) {

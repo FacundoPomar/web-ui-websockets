@@ -18,6 +18,7 @@ function compileTemplates(templates) {
 	templates.comicsBlock = Handlebars.compile($('#comic-postal-template').html());
 	templates.footer = Handlebars.compile($('#footer-template').html());
 	templates.viewComic = Handlebars.compile($('#view-comic-template').html());
+	templates.viewComicNotFound = Handlebars.compile($('#view-comic-not-found-template').html());
 }
 
 
@@ -112,18 +113,18 @@ function openComic() {
 	conn.onmessage = function (e) {
 		try {
 			var data = JSON.parse(e.data);
-			if (data.response === 'ok') {
+			if (data.comic) {
 				var comic = new Comic(data.comic);
 				viewComic(comic);
 			} else {
-				//Show comic not found page
+				viewComicNotFound(id);
 			}
 		} catch (err) {
 
 		}
 	}
 }
-
+//Refactor ME
 function viewComic(comic) {
 
 	if (templates && templates.viewComic) {
@@ -132,7 +133,17 @@ function viewComic(comic) {
 				.html(templates.viewComic(comic))
 				.slideDown();
 		});
-
 	}
 
+}
+
+function viewComicNotFound(id) {
+
+	if (templates && templates.viewComicNotFound) {
+		$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewComicNotFound({id: id}))
+				.slideDown();
+		});
+	}
 }
