@@ -4,13 +4,15 @@ Path.map("#/comic/:id").to(function(){
 
 Path.map("#/").to(openHome);
 
+Path.map("#/login").to(openLogin);
+
+Path.map("#/sitemap").to(openSitemap);
+
 Path.map("#/posts").to(function(){
     alert("Posts!");
 });
 
-Path.map("*").to(function() {
-    console.log("not found");
-});
+Path.rescue(openNotFound);
 
 Path.root("#/");
 

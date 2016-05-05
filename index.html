@@ -37,11 +37,7 @@
               </ul>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
-            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
-          </ul>
+          <ul class="nav navbar-nav navbar-right dinamicNavbar"></ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
@@ -56,6 +52,7 @@
 
 </body>
 <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+<script src="./js/jquery/helpers.js"></script>
 <script   src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"   ossorigin="anonymous"></script>
 <script src="./js/handlebars/helpers.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -135,4 +132,53 @@
             <h1 class="fullComicView_title">Comic ID: {{ id }} Not Found !</h1>
         </div>
     </div>
+</script>
+
+<script id="view-sitemap-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 sitemap postal">
+            <h1 class="sitemap_title">Sitemap</h1>
+            <div class="sitemap_links">
+            <a href="#/">Home</a>
+            <a href="#/">Another link</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="view-not-found-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 notFound postal">
+            <h1 class="notFound_title">Sorry :(</h1>
+            <h2 class="notFound_subTitle">404 Not Found</h2>
+        </div>
+    </div>
+</script>
+
+<script id="view-login-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 login postal">
+            <h1 class="login_title">Login</h1>
+            <div class="col col-md-7 col-md-offset-3 loginContainer">
+                <div class="alert alert-danger loginError" style="display: none"></div>
+                <form class="form-inline loginForm" action="#">
+                    <div class="form-group">
+                        <label for="loginUser">Username</label>
+                        <input type="text" class="form-control" name="loginUser" id="loginUser" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPass">Password</label>
+                        <input type="password" class="form-control" name="loginPass" id="loginPass" placeholder="************" required>
+                    </div>
+                    <button type="submit" class="btn btn-default loginButton">Log in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="view-dinamicNavbar-template" type="text/x-handlebars-template">
+    {{#each items}}
+        {{ make_link this}}
+    {{/each}}
 </script>

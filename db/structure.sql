@@ -5,3 +5,11 @@ CREATE TABLE `comicstore`.`comics` (
   `price` DECIMAL(30,10) NULL,
   `img` VARCHAR(200) NULL DEFAULT './img/comics/comic-sample.jpg',
   PRIMARY KEY (`id`, `title`));
+
+CREATE TABLE `comicstore`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `hash` VARCHAR(100) NULL DEFAULT NULL,
+  `expires` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `username`));

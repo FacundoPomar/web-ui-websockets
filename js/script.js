@@ -3,10 +3,21 @@ var templates = {};
 var latestComics = [];
 var popularComics = [];
 var mainSection = '.main-section';
+var loginErrorSection = '.login .loginError';
+var dinamicNavbarSection = '.navbar .dinamicNavbar';
+var userInfo = null;
+
+try {
+	userInfo = JSON.parse(localStorage.getItem('user'));
+} catch (err) {
+	console.error('On parse localStorage user Info');
+}
+
 
 $(document).ready(function() {
 	compileTemplates(templates);
 	loadSiteConfig(config, [showHeader, showFooter]);
+	setLoggedUser([updateDinamicNavbar], [updateDinamicNavbar]);
 });;
 
 function compileTemplates(templates) {
@@ -17,6 +28,10 @@ function compileTemplates(templates) {
 	templates.footer = Handlebars.compile($('#footer-template').html());
 	templates.viewComic = Handlebars.compile($('#view-comic-template').html());
 	templates.viewComicNotFound = Handlebars.compile($('#view-comic-not-found-template').html());
+	templates.viewSitemap = Handlebars.compile($('#view-sitemap-template').html());
+	templates.viewNotFound = Handlebars.compile($('#view-not-found-template').html());
+	templates.viewLogin = Handlebars.compile($('#view-login-template').html());
+	templates.viewDinamicNavbar = Handlebars.compile($('#view-dinamicNavbar-template').html());
 }
 
 
@@ -148,5 +163,143 @@ function openHome() {
 			getComics(popularComics, 'popular', [showPopularComicsBlock]);
     		getComics(latestComics, 'latest', [showLatestComicsBlock]);
 			$(this).slideDown('slow');
+	});
+}
+
+function openSitemap() {
+	$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewSitemap())
+				.slideDown();
+	});
+}
+
+function openNotFound() {
+	$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewNotFound())
+				.slideDown();
+	});
+}
+
+function setLoggedUser(observers, negativeObservers) {
+
+	if (userInfo) {
+		var conn = new WebSocket('ws://localhost:9090/login');
+
+		conn.onopen = function () {
+			var data = {
+				action: 'autologin',
+				hash: userInfo.hash,
+				username: userInfo.username
+			};
+			conn.send(JSON.stringify(data));
+		}
+
+		conn.onmessage = function (e) {
+			try {
+				var result = JSON.parse(e.data);
+				console.info('Auto Login', result);
+				if (result.response === 'ok') {
+					for (var i = observers.length - 1; i >= 0; i--) {
+						observers[i]();
+					};
+				} else {
+					clearLoginInfo([updateDinamicNavbar]);
+				}
+			} catch (err) {
+				//catch me
+			}
+		}
+
+	} else {
+		for (var i = negativeObservers.length - 1; i >= 0; i--) {
+			negativeObservers[i]();
+		};
+	}
+}
+
+function updateDinamicNavbar() {
+
+	if (templates && templates.viewDinamicNavbar) {
+		var user = (userInfo && userInfo.username),
+			data = {
+				items: []
+			};
+		if (user) {
+			data.items.push({url: '#/profile', class: 'dinamicNavbar_profile', title: 'get into my profile', caption: user})
+			data.items.push({url: '#/logout', class: '', title: 'Logout from the system', caption: 'Logout'})
+		} else {
+			data.items.push({url: '#/login', class: '', title: 'Login the system', caption: 'Login'})
+		}
+		$(dinamicNavbarSection).html(templates.viewDinamicNavbar(data));
+	}
+}
+
+function saveLoginInfo(username, hash) {
+	var data = {
+		username: username,
+		hash: hash
+	}
+	localStorage.setItem('user', JSON.stringify(data));
+	userInfo = data;
+}
+
+function clearLoginInfo(observers) {
+	localStorage.removeItem('user');
+	userInfo = null;
+	for (var i = observers.length - 1; i >= 0; i--) {
+		observers[i]();
+	};
+}
+
+function openLogin() {
+
+	function showLoginError(error) {
+		$(loginErrorSection).slideUp(function () {
+			$(this)
+				.html(error)
+				.slideDown();
+		});
+	}
+
+	function checkLogin(data) {
+		var conn = new WebSocket('ws://localhost:9090/login'),
+			user = data.loginUser || '';
+
+		conn.onopen = function () {
+			data.action = 'login';
+			conn.send(JSON.stringify(data));
+		}
+
+		conn.onmessage = function (e) {
+			try {
+				var resp = JSON.parse(e.data);
+				if (resp.response === 'ok') {
+					saveLoginInfo(user, resp.hash);
+					updateDinamicNavbar();
+					window.location.href = '#/';
+				} else {
+					showLoginError(resp.error);
+				}
+			} catch (err) {
+				showLoginError(err);
+			}
+		}
+
+	}
+
+	function bindLoginEvent() {
+		$(".loginForm").on('submit', function(e) {
+			e.preventDefault();
+			checkLogin($( this ).serializeObject());
+		});
+	}
+
+	$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewLogin())
+				.slideDown();
+				bindLoginEvent();
 	});
 }
