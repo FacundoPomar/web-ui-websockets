@@ -1,11 +1,12 @@
-var config = {};
-var templates = {};
-var latestComics = [];
-var popularComics = [];
-var mainSection = '.main-section';
-var loginErrorSection = '.login .loginError';
-var dinamicNavbarSection = '.navbar .dinamicNavbar';
-var userInfo = null;
+var config = {},
+	templates = {},
+	latestComics = [],
+	popularComics = [],
+	mainSection = '.main-section',
+	loginErrorSection = '.login .loginError',
+	dinamicNavbarSection = '.navbar .dinamicNavbar',
+	navbarButtonsSection = '.navbarButtons',
+	userInfo = null;
 
 try {
 	userInfo = JSON.parse(localStorage.getItem('user'));
@@ -17,7 +18,11 @@ try {
 $(document).ready(function() {
 	compileTemplates(templates);
 	loadSiteConfig(config, [showHeader, showFooter]);
-	setLoggedUser([updateDinamicNavbar], [updateDinamicNavbar]);
+	setLoggedUser(
+		[],
+		[],
+		[updateDinamicNavbar, updateNavbarButtons]
+	);
 });;
 
 function compileTemplates(templates) {
@@ -32,6 +37,17 @@ function compileTemplates(templates) {
 	templates.viewNotFound = Handlebars.compile($('#view-not-found-template').html());
 	templates.viewLogin = Handlebars.compile($('#view-login-template').html());
 	templates.viewDinamicNavbar = Handlebars.compile($('#view-dinamicNavbar-template').html());
+	templates.viewNavbarButtons = Handlebars.compile($('#view-navbar-buttons-template').html());
+}
+
+function updateNavbarButtons() {
+
+	if (templates && templates.viewNavbarButtons) {
+		var html = templates.viewNavbarButtons({
+			logged: !!userInfo
+		});
+		$(navbarButtonsSection).html(html);
+	}
 }
 
 
@@ -182,7 +198,7 @@ function openNotFound() {
 	});
 }
 
-function setLoggedUser(observers, negativeObservers) {
+function setLoggedUser(observers, negativeObservers, alwaysObservers) {
 
 	if (userInfo) {
 		var conn = new WebSocket('ws://localhost:9090/login');
@@ -207,6 +223,9 @@ function setLoggedUser(observers, negativeObservers) {
 				} else {
 					clearLoginInfo([updateDinamicNavbar]);
 				}
+				for (var i = alwaysObservers.length - 1; i >= 0; i--) {
+					alwaysObservers[i]();
+				};
 			} catch (err) {
 				//catch me
 			}
@@ -217,6 +236,9 @@ function setLoggedUser(observers, negativeObservers) {
 			negativeObservers[i]();
 		};
 	}
+	for (var i = alwaysObservers.length - 1; i >= 0; i--) {
+		alwaysObservers[i]();
+	};
 }
 
 function updateDinamicNavbar() {
@@ -278,6 +300,7 @@ function openLogin() {
 				if (resp.response === 'ok') {
 					saveLoginInfo(user, resp.hash);
 					updateDinamicNavbar();
+					updateNavbarButtons();
 					window.location.href = '#/';
 				} else {
 					showLoginError(resp.error);
@@ -305,6 +328,6 @@ function openLogin() {
 }
 
 function logOut() {
-	clearLoginInfo([updateDinamicNavbar]);
+	clearLoginInfo([updateDinamicNavbar, updateNavbarButtons]);
 	window.location.href = '#/';
 }
