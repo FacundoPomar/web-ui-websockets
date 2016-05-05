@@ -21,7 +21,6 @@ class Comic implements MessageComponentInterface {
         if (count($parameters) and isset($parameters['id'])) {
             $id = $parameters['id'];
             $db = DB::getInstance();
-            var_dump($db);
             $stmt = $db->prepare("SELECT * FROM comics WHERE id=$id");
             $stmt->bindValue($id, PDO::PARAM_INT);
             $stmt->execute();
