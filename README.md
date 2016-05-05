@@ -5,7 +5,7 @@ Curso WebUI globant websockets
 
 Create DB comicstore, execute structure.sql and inserts.sql for mocked data
 
-Configure your apache to pint to the root of this repositorie.
+Configure your apache to point to the root of this repository.
 
 On main folder, run the websocket server by tipping
 
