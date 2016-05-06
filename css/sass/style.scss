@@ -146,6 +146,29 @@ $comicTitle: red;
     }
 }
 
+.generalError {
+
+    .generalError_title {
+        font-size: 5em;
+        text-align: center;
+        color: salmon;
+        font-family: fantasy;
+    }
+
+    .generalError_msg {
+        font-style: italic;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.profile {
+    .profile_title {
+        font-style: italic;
+        font-family: fantasy;
+    }
+}
+
 /* Mobiles and stuff like that */
 @media only screen and (max-width : 768px) {
 

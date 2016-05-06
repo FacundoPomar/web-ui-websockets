@@ -137,6 +137,15 @@
     </div>
 </script>
 
+<script id="view-general-error-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 generalError postal">
+            <h1 class="generalError_title">ERROR !</h1>
+            <h2 class="generalError_msg">{{ msg }}</h2>
+        </div>
+    </div>
+</script>
+
 <script id="view-login-template" type="text/x-handlebars-template">
     <div class="row">
         <div class="col col-md-12 login postal">
@@ -188,7 +197,7 @@
         <div class="col col-md-12 page profile postal">
             <h1 class="profile_title">{{ firstname }} {{ lastname }}</h1>
             <div class="col col-md-10 col-md-offset-1 profile_content">
-            <div>{{ phone }}</div>
+            <div>Phone: {{ phone }}</div>
             </div>
         </div>
     </div>

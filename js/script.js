@@ -44,6 +44,7 @@ function compileTemplates(templates) {
 	templates.viewNavbarButtons = Handlebars.compile($('#view-navbar-buttons-template').html());
 	templates.viewPage = Handlebars.compile($('#view-page-template').html());
 	templates.viewProfile = Handlebars.compile($('#view-profile-template').html());
+	templates.viewGeneralError = Handlebars.compile($('#view-general-error-template').html());
 }
 
 function openProfile() {
@@ -68,7 +69,7 @@ function openProfile() {
 					openErrorPage(data.error);
 				}
 			} catch (err) {
-				openErrorPage(data.error);
+				openErrorPage(err);
 			}
 		};
 	} else {
@@ -77,7 +78,15 @@ function openProfile() {
 }
 
 function openErrorPage(msg) {
-	console.error(msg);
+	if (templates && templates.viewGeneralError) {
+		$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewGeneralError({
+					msg: msg
+				}))
+				.slideDown();
+		});
+	}
 }
 
 function viewProfile(profile) {
@@ -104,7 +113,7 @@ function openPage(slug) {
 			}
 		};
 	} else {
-		openNotFound();
+		openErrorPage(errors.credentials);
 	}
 }
 

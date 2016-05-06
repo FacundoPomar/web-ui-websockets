@@ -195,3 +195,14 @@ VALUES
 'Facundo',
 'Pomar',
 '34324324234');
+
+INSERT INTO `comicstore`.`userprofiles`
+(`username`,
+`firstname`,
+`lastname`,
+`phone`)
+VALUES
+('marina',
+'Marina',
+'Machado',
+'0800-666-fake');
