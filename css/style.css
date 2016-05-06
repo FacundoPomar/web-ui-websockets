@@ -5,6 +5,7 @@
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
   border: 0px solid #000000;
+  padding-bottom: 20px;
 }
 
 .header {
@@ -97,6 +98,21 @@
 
 .dinamicNavbar .dinamicNavbar_profile {
   font-size: italic;
+}
+
+.page .page_title {
+  text-align: center;
+  font-size: 5em;
+  color: lightcoral;
+}
+.page .page_content {
+  text-align: justify;
+}
+.page .page_content img {
+  float: left;
+  max-width: 50%;
+  height: auto;
+  margin: 2%;
 }
 
 /* Mobiles and stuff like that */

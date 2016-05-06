@@ -2,6 +2,10 @@ Path.map("#/comic/:id").to(function(){
     openComic(this.params['id']);
 });
 
+Path.map("#/page/:slug").to(function(){
+    openPage(this.params['slug']);
+});
+
 Path.map("#/").to(openHome);
 
 Path.map("#/login").to(openLogin);

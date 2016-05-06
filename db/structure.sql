@@ -13,3 +13,10 @@ CREATE TABLE `comicstore`.`users` (
   `hash` VARCHAR(100) NULL DEFAULT NULL,
   `expires` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `username`));
+
+CREATE TABLE `comicstore`.`pages` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `slug` VARCHAR(100) NOT NULL,
+  `title` VARCHAR(200) NOT NULL,
+  `content` TEXT(50000) NOT NULL,
+  PRIMARY KEY (`id`, `slug`));

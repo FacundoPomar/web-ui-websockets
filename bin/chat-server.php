@@ -7,6 +7,7 @@ use MyApp\SiteConfig;
 use MyApp\Comics;
 use MyApp\Comic;
 use MyApp\Login;
+use MyApp\Page;
 
     require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -15,5 +16,6 @@ use MyApp\Login;
     $app->route('/siteconfig', new SiteConfig, array('*'));
     $app->route('/comics/{type}', new Comics, array('*'));
     $app->route('/comic/{id}', new Comic, array('*'));
+    $app->route('/page/{slug}', new Page, array('*'));
     $app->route('/login', new Login, array('*'));
     $app->run();

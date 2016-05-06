@@ -32,8 +32,6 @@
         <footer class="footer-section"></footer>
     </div>
 
-
-
 </body>
 <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 <script src="./js/jquery/helpers.js"></script>
@@ -170,8 +168,17 @@
 <script id="view-navbar-buttons-template" type="text/x-handlebars-template">
     <li><a href="#/">Home</a></li>
     {{#if logged }}
-        <li><a href="#/genres">Genres</a></li>
-        <li><a href="#/editions">Editions</a></li>
-        <li><a href="#/characters">Characters</a></li>
+        <li><a href="#/page/genres">Genres</a></li>
+        <li><a href="#/page/editions">Editions</a></li>
+        <li><a href="#/page/characters">Characters</a></li>
     {{/if}}
+</script>
+
+<script id="view-page-template" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col col-md-12 page postal">
+            <h1 class="page_title">{{ title }}</h1>
+            <div class="col col-md-10 col-md-offset-1 page_content">{{ break_maker content }}</div>
+        </div>
+    </div>
 </script>

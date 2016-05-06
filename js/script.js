@@ -10,6 +10,7 @@ var config = {},
 
 try {
 	userInfo = JSON.parse(localStorage.getItem('user'));
+	console.log(userInfo);
 } catch (err) {
 	console.error('On parse localStorage user Info');
 }
@@ -38,6 +39,35 @@ function compileTemplates(templates) {
 	templates.viewLogin = Handlebars.compile($('#view-login-template').html());
 	templates.viewDinamicNavbar = Handlebars.compile($('#view-dinamicNavbar-template').html());
 	templates.viewNavbarButtons = Handlebars.compile($('#view-navbar-buttons-template').html());
+	templates.viewPage = Handlebars.compile($('#view-page-template').html());
+}
+
+function openPage(slug) {
+
+	if (userInfo && userInfo.checked) {
+		var conn = new WebSocket('ws://localhost:9090/page/' + slug);
+
+		conn.onmessage = function(e) {
+			try {
+				var data = JSON.parse(e.data);
+				viewPage(data.page);
+			} catch (err) {
+				console.log('Error on site config loading: ' + err);
+			}
+		};
+	} else {
+		openNotFound();
+	}
+}
+
+function viewPage(page) {
+	if (templates && templates.viewPage) {
+		$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewPage(page))
+				.slideDown();
+		});
+	}
 }
 
 function updateNavbarButtons() {
@@ -217,6 +247,7 @@ function setLoggedUser(observers, negativeObservers, alwaysObservers) {
 				var result = JSON.parse(e.data);
 				console.info('Auto Login', result);
 				if (result.response === 'ok') {
+					userInfo.checked = true;
 					for (var i = observers.length - 1; i >= 0; i--) {
 						observers[i]();
 					};
@@ -264,6 +295,7 @@ function saveLoginInfo(username, hash) {
 		hash: hash
 	}
 	localStorage.setItem('user', JSON.stringify(data));
+	data.checked = true;
 	userInfo = data;
 }
 
