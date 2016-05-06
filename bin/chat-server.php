@@ -8,6 +8,7 @@ use MyApp\Comics;
 use MyApp\Comic;
 use MyApp\Login;
 use MyApp\Page;
+use MyApp\Profile;
 
     require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -18,4 +19,5 @@ use MyApp\Page;
     $app->route('/comic/{id}', new Comic, array('*'));
     $app->route('/page/{slug}', new Page, array('*'));
     $app->route('/login', new Login, array('*'));
+    $app->route('/profile', new Profile, array('*'));
     $app->run();

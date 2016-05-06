@@ -11,6 +11,8 @@ Path.map("#/").to(openHome);
 Path.map("#/login").to(openLogin);
 Path.map("#/logout").to(logOut);
 
+Path.map("#/profile").to(openProfile);
+
 Path.map("#/sitemap").to(openSitemap);
 
 Path.map("#/posts").to(function(){

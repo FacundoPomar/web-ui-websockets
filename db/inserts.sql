@@ -183,3 +183,15 @@ Proin justo metus, bibendum vitae placerat vitae, cursus in sapien. Nunc molesti
 Phasellus sapien tellus, tempus vehicula urna at, dictum fringilla ante. Aenean eget dolor ante. Nulla hendrerit scelerisque mattis. Praesent ultrices finibus convallis. Vestibulum dignissim consequat nisi vel scelerisque. Nulla et nisi scelerisque, consequat lectus cursus, imperdiet dolor. Nunc porttitor laoreet ipsum, ut pretium sem sodales nec. Aenean id mollis mauris, porta auctor mauris. Quisque sed volutpat ex. Pellentesque mauris tortor, gravida rhoncus felis pulvinar, aliquam sodales urna. Vivamus volutpat feugiat faucibus. Nullam interdum urna viverra, sagittis neque in, porttitor mi. Maecenas metus tortor, eleifend ut lacus vitae, pharetra imperdiet augue. Vivamus consectetur felis vel tellus varius, ac facilisis metus iaculis. Phasellus nibh leo, vestibulum vel euismod quis, scelerisque sed nunc.
 
 Morbi nulla lacus, fringilla a ligula et, lobortis tincidunt libero. Proin et semper quam, rhoncus fermentum ipsum. Nunc sollicitudin ipsum nisi, at varius lectus consectetur id. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam feugiat nec orci sit amet facilisis. Mauris.');
+
+
+INSERT INTO `comicstore`.`userprofiles`
+(`username`,
+`firstname`,
+`lastname`,
+`phone`)
+VALUES
+('facundo',
+'Facundo',
+'Pomar',
+'34324324234');

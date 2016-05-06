@@ -20,3 +20,11 @@ CREATE TABLE `comicstore`.`pages` (
   `title` VARCHAR(200) NOT NULL,
   `content` TEXT(50000) NOT NULL,
   PRIMARY KEY (`id`, `slug`));
+
+CREATE TABLE `comicstore`.`userprofiles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `firstname` VARCHAR(45) NOT NULL DEFAULT '',
+  `lastname` VARCHAR(45) NOT NULL DEFAULT '',
+  `phone` VARCHAR(45) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`, `username`));

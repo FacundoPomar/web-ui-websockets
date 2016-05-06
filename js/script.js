@@ -6,7 +6,10 @@ var config = {},
 	loginErrorSection = '.login .loginError',
 	dinamicNavbarSection = '.navbar .dinamicNavbar',
 	navbarButtonsSection = '.navbarButtons',
-	userInfo = null;
+	userInfo = null,
+	errors = {
+		credentials: 'It was an error with your credentials'
+	};
 
 try {
 	userInfo = JSON.parse(localStorage.getItem('user'));
@@ -40,6 +43,51 @@ function compileTemplates(templates) {
 	templates.viewDinamicNavbar = Handlebars.compile($('#view-dinamicNavbar-template').html());
 	templates.viewNavbarButtons = Handlebars.compile($('#view-navbar-buttons-template').html());
 	templates.viewPage = Handlebars.compile($('#view-page-template').html());
+	templates.viewProfile = Handlebars.compile($('#view-profile-template').html());
+}
+
+function openProfile() {
+
+	if (userInfo && userInfo.checked) {
+		var conn = new WebSocket('ws://localhost:9090/profile');
+
+		conn.onopen = function() {
+			var data = JSON.stringify({
+				username: userInfo.username,
+				hash: userInfo.hash
+			});
+			conn.send(data);
+		}
+
+		conn.onmessage = function(e) {
+			try {
+				var data = JSON.parse(e.data);
+				if (data.response === 'ok') {
+					viewProfile(data.profile);
+				} else {
+					openErrorPage(data.error);
+				}
+			} catch (err) {
+				openErrorPage(data.error);
+			}
+		};
+	} else {
+		openErrorPage(errors.credentials);
+	}
+}
+
+function openErrorPage(msg) {
+	console.error(msg);
+}
+
+function viewProfile(profile) {
+	if (templates && templates.viewProfile) {
+		$(mainSection).slideUp(function () {
+			$(this)
+				.html(templates.viewProfile(profile))
+				.slideDown();
+		});
+	}
 }
 
 function openPage(slug) {
